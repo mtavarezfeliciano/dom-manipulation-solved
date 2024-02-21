@@ -12,6 +12,7 @@
  */
 
 // Your code goes here...
+const allItems = document.querySelectorAll('.item');
 
 
 
@@ -23,6 +24,7 @@
  * */
 
 // Your code goes here
+const main = document.getElementById('main');
 
 
 
@@ -34,6 +36,7 @@
  */
 
 // Your code goes here
+const favs = document.getElementById('favs');
 
 
 
@@ -47,6 +50,18 @@
  */
 
 // Your code goes here
+const updateCollections = (id, direction) => {
+    const item = document.getElementById(id);
+    if (item) {
+        if (direction === 'toFavs') {
+            favs.appendChild(item);
+            item.querySelector('i').className = 'fa-solid fa-heart-crack';
+        } else if (direction === 'toMain') {
+            main.appendChild(item);
+            item.querySelector('i').className = 'fa-solid fa-heart-circle-plus';
+        }
+    }
+}
 
 
 
@@ -65,5 +80,16 @@
  */
 
 // Your code goes here...
+for (let i = 0; i < allItems.length; i+=1) {
+    allItems[i].addEventListener('click', function() {
+        const currentParentId = allItems[i].parentNode.id;
+        // console.log(currentParentId); //confirmed it grabs either main or fav in console
+        const currentNodeId = parseInt(allItems[i].id);
+        // console.log(currentNodeId); //confirmed it grabs the id of the individual item
+        let direction = (currentParentId === 'main') ? 'toFavs' : 'toMain';
+        updateCollections(currentNodeId, direction);
+    })
+}
+
 
 
