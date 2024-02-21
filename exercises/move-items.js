@@ -83,9 +83,7 @@ const updateCollections = (id, direction) => {
 for (let i = 0; i < allItems.length; i+=1) {
     allItems[i].addEventListener('click', function() {
         const currentParentId = allItems[i].parentNode.id;
-        // console.log(currentParentId); //confirmed it grabs either main or fav in console
         const currentNodeId = parseInt(allItems[i].id);
-        // console.log(currentNodeId); //confirmed it grabs the id of the individual item
         let direction = (currentParentId === 'main') ? 'toFavs' : 'toMain';
         updateCollections(currentNodeId, direction);
     })
