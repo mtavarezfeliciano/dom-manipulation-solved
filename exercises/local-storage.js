@@ -38,3 +38,69 @@
  */
 
 // Your code goes here...
+
+
+
+//grab container
+const mainContainer = document.querySelector('.cardsContainer');
+//init. the favs LS shit (im going insane)
+const favoritesLS = JSON.parse(localStorage.getItem('favorites')) || [];
+
+for (let item of mainContainer.getElementsByClassName('card')) {
+    const itemId = parseInt(item.id, 10);
+
+    if (favoritesLS.includes(itemId)) {
+        item.style.backgroundColor = 'red';
+    }
+}
+//pls work
+//(update, it worked. :)   )
+
+
+const setBgRed = () => {
+    const favoritesLS = JSON.parse(localStorage.getItem('favorites')) || [];
+
+    for (let item of mainContainer.getElementsByClassName('card')) {
+        const itemId = parseInt(item.id, 10);
+
+        if (favoritesLS.includes(itemId)) {
+            item.style.backgroundColor = 'red';
+        }
+    }
+};
+
+// adding
+const addFavorites = (itemId) => {
+    const favoritesLS = JSON.parse(localStorage.getItem('favorites')) || [];
+    favoritesLS.push(itemId);
+    localStorage.setItem('favorites', JSON.stringify(favoritesLS));
+};
+
+// removing
+const removeFavorites = (itemId) => {
+    const favoritesLS = JSON.parse(localStorage.getItem('favorites')) || [];
+    const updatedFavorites = favoritesLS.filter(id => id !== itemId);
+    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+};
+
+// callback
+const clickEventFn = (e) => {
+    const clicked = e.target;
+    if (clicked.classList.contains('card')) {
+        const favoritesLS = JSON.parse(localStorage.getItem('favorites')) || [];
+        const clickedId = parseInt(clicked.id, 10);
+        if (!favoritesLS.includes(clickedId)) {
+            clicked.style.backgroundColor = 'red';
+            addFavorites(clickedId);
+        } else {
+            clicked.style.backgroundColor = 'white';
+            removeFavorites(clickedId);
+        }
+    }
+};
+
+mainContainer.addEventListener('click', clickEventFn);
+
+
+setBgRed();
+//some shoot me
